@@ -1,0 +1,253 @@
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+$bg_color: #fff;
+$f_color: #000;
+$register_bg_img: url("../image/register_background.png");
+
+body {
+  font-family: "Noto Sans KR", sans-serif !important;
+  background-color: #{$bg_color};
+  margin: 0;
+}
+.none {
+  display: none !important;
+}
+
+// THNIC signature color
+.T_word {
+  color: #ff3c46;
+}
+.H_word {
+  color: #ffb400;
+}
+.I_word {
+  color: #00cc00;
+}
+.N_word {
+  color: #5a5aff;
+}
+.C_word {
+  color: #b000b6;
+}
+
+// register
+.register {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+}
+.register_left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 50%;
+  height: 100%;
+  background-color: #{$bg_color};
+  p {
+    margin: 26px 0 0 0;
+    font-size: 18px;
+  }
+}
+.register_right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+  height: 100%;
+  background-image: #{$register_bg_img};
+}
+.register_bg {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+// register => form
+.field {
+  width: 400px;
+  height: 64px;
+  border-radius: 12px;
+  background-color: #f0f0f0;
+  font-size: 18px;
+  border: none;
+  text-indent: 18px;
+  line-height: 2;
+}
+.button {
+  width: 400px;
+  height: 56px;
+  border-radius: 32px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.16);
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  line-height: 2;
+  cursor: pointer;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 24px;
+  box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.4);
+  background-color: #{$bg_color};
+  position: relative;
+  z-index: 1000;
+  h1 {
+    margin: 24px 0 24px 0;
+    font-size: 36px;
+    font-weight: bold;
+    line-height: 1.33;
+    color: #{$f_color};
+  }
+  p {
+    cursor: pointer;
+    color: #969696;
+    margin: 7px 0 7px 0;
+    &:hover {
+      color: #{$f_color};
+    }
+  }
+}
+.login {
+  width: 550px;
+  height: 416px;
+  .button {
+    background-color: #5a5aff;
+    &:hover {
+      background-color: #5050ff;
+      box-shadow: none;
+    }
+  }
+  .field {
+    margin: 0 0 16px 0;
+  }
+  .button {
+    margin: 20px 0 20px 0;
+  }
+}
+.join {
+  width: 492px;
+  height: 488px;
+  .button {
+    background-color: #00cc00;
+    &:hover {
+      background-color: #02bb02;
+      box-shadow: none;
+    }
+  }
+  .field {
+    margin: 0 0 12px 0;
+  }
+  .button {
+    margin: 22px 0 20px 0;
+  }
+}
+
+// main
+.main {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background-color: $bg_color;
+}
+
+// navigation
+.navigation {
+  display: flex;
+}
+.nav_full {
+  display: flex;
+  flex-direction: column;
+  width: 305px;
+  height: 100%;
+  background-color: #{$bg_color};
+  box-shadow: 3px 0 6px 0 rgba(0, 0, 0, 0.16);
+}
+.nav_sub {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  height: 100%;
+  background-color: #{$bg_color};
+  box-shadow: 3px 0 6px 0 rgba(0, 0, 0, 0.16);
+}
+.nav_userinfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 274px;
+  p {
+    margin: 12px 0 0 0;
+    font-size: 24px;
+  }
+}
+.nav {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  cursor: pointer;
+  p {
+    margin: 0 0 0 24px;
+    font: 18px;
+  }
+  img {
+    margin: 0 0 0 36px;
+  }
+}
+.nav_project:hover {
+  background-color: #5a5aff;
+  img {
+    content: url(../image/main_space_clicked.png);
+  }
+  p {
+    color: #fff;
+  }
+}
+.nav_notice:hover {
+  background-color: #00cc00;
+  img {
+    content: url(../image/main_notice_clicked.png);
+  }
+  p {
+    color: #fff;
+  }
+}
+.nav_setting:hover {
+  background-color: #ffb400;
+  img {
+    content: url(../image/main_setting_clicked.png);
+  }
+  p {
+    color: #fff;
+  }
+}
+.nav_logout {
+  color: #ff3c46;
+  &:hover {
+    background-color: #ff3c46;
+    color: #fff;
+  }
+}
+.nav_logo {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 48px;
+  padding-top: 48px;
+  width: 100%;
+  cursor: pointer;
+}
+.nav_logo_mini {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  margin-bottom: 70px;
+  padding-top: 70px;
+  width: 100%;
+  cursor: pointer;
+}
