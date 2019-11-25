@@ -67,7 +67,7 @@ export function initToken(token) {
 
 export function userinfo(token) {
   const request = axios
-    .post(`${ROOT_URL}/info`, { token })
+    .post(`${URL}/info`, { token })
     .then(response => {
       return response.data;
     })

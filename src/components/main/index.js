@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 
+import { userinfo, PROJECTSPACE, NOTICE, SETTING } from "../../actions";
+
 import Navigation from "./navigation";
 import ProjectSpace from "./projectSpace";
 import Notice from "./notice";
@@ -22,6 +24,7 @@ class Main extends Component {
       this.props.history.push("/register");
     } else {
       cookies.set("token", token, { path: "/" });
+      this.props.userinfo(token);
     }
   }
   shouldComponentUpdate(nextProps, nextState) {
@@ -37,13 +40,16 @@ class Main extends Component {
     this.setState({ clicked: next });
   };
   render() {
+    const { clicked } = this.state;
     return (
       <div className="main">
-        <Navigation onChangeClick={next => this.onChangeClick(next)} />
-        <ProjectSpace clicked={this.state.clicked} />
-        <Notice clicked={this.state.clicked} />
-        <Setting clicked={this.state.clicked} />
         <Popup />
+        <Navigation onChangeClick={next => this.onChangeClick(next)} />
+        <div className="workspace">
+          {clicked === PROJECTSPACE ? <ProjectSpace /> : null}
+          {clicked === NOTICE ? <Notice /> : null}
+          {clicked === SETTING ? <Setting /> : null}
+        </div>
       </div>
     );
   }
@@ -55,4 +61,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default withCookies(connect(mapStateToProps)(Main));
+export default withCookies(connect(mapStateToProps, { userinfo })(Main));

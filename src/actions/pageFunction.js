@@ -2,10 +2,7 @@
 
 // action type
 export const RESIZE = "resize";
-
-// 페이지 크기
-export const FULLNAV = 0;
-export const SUBNAV = 1;
+export const ONPOPUP = "onpopup";
 
 // 페이지 크기 조절
 export function resize(size) {
@@ -15,7 +12,10 @@ export function resize(size) {
   };
 }
 
-// nav index
-export const PROJECTSPACE = 1;
-export const NOTICE = 2;
-export const SETTING = 3;
+// popup 조절
+export function onpopup(solve) {
+  return {
+    type: ONPOPUP,
+    payload: solve
+  };
+}

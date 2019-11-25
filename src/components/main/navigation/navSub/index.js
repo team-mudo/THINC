@@ -13,7 +13,7 @@ import {
 } from "../../../../actions";
 
 import TeacherImg from "../../../../image/main_teacher_default.png";
-// import StudentImg from "../../../../image/main_student_default.png";
+import StudentImg from "../../../../image/main_student_default.png";
 import Project from "../../../../image/main_space.png";
 import Notice from "../../../../image/main_notice.png";
 import Setting from "../../../../image/main_setting.png";
@@ -27,12 +27,17 @@ class NavSub extends Component {
     this.props.logout();
   }
   render() {
-    const { size, onChangeClick } = this.props;
+    const { size, user, onChangeClick } = this.props;
     return (
       <div className={size === SUBNAV ? "nav_sub" : "nav_sub none"}>
         {/* TODO: user data 추가 */}
         <div className="nav_userinfo">
-          <img src={TeacherImg} alt="teacher" width="60" height="60" />
+          <img
+            src={user.auth ? TeacherImg : StudentImg}
+            alt="teacher"
+            width="60"
+            height="60"
+          />
         </div>
         <div
           className="nav nav_project"
@@ -62,7 +67,8 @@ class NavSub extends Component {
 
 function mapStateToProps(state) {
   return {
-    size: state.size
+    size: state.size,
+    user: state.user
   };
 }
 
