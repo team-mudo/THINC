@@ -2,10 +2,17 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withCookies } from "react-cookie";
 
-import { userinfo, PROJECTSPACE, NOTICE, SETTING } from "../../actions";
+import {
+  userinfo,
+  PROJECTSPACE,
+  NOTICE,
+  SETTING,
+  INPROJECT
+} from "../../actions";
 
 import Navigation from "./navigation";
 import ProjectSpace from "./projectSpace";
+import InProject from "./inProject";
 import Notice from "./notice";
 import Setting from "./setting";
 import Popup from "./popup";
@@ -16,7 +23,7 @@ class Main extends Component {
     const { cookies } = this.props;
 
     this.state = {
-      clicked: 0
+      clicked: 1
     };
 
     const { token } = this.props.user;
@@ -46,7 +53,10 @@ class Main extends Component {
         <Popup />
         <Navigation onChangeClick={next => this.onChangeClick(next)} />
         <div className="workspace">
-          {clicked === PROJECTSPACE ? <ProjectSpace /> : null}
+          {clicked === INPROJECT ? <InProject /> : null}
+          {clicked === PROJECTSPACE ? (
+            <ProjectSpace onChangeClick={next => this.onChangeClick(next)} />
+          ) : null}
           {clicked === NOTICE ? <Notice /> : null}
           {clicked === SETTING ? <Setting /> : null}
         </div>

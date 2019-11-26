@@ -2,12 +2,14 @@ export * from "../config";
 export * from "./pageFunction";
 export * from "./userFunction";
 export * from "./projectFunction";
+export * from "./teamFunction";
 
 // Auth
 export const TEACHER = 1;
 export const STUDENT = 0;
 
 // nav index
+export const INPROJECT = 0;
 export const PROJECTSPACE = 1;
 export const NOTICE = 2;
 export const SETTING = 3;

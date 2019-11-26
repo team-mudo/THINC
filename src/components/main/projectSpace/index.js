@@ -11,7 +11,7 @@ class ProjectSpace extends Component {
     onpopup(ON_BUILD_PROJECT);
   }
   render() {
-    const { user } = this.props;
+    const { user, popup, onChangeClick } = this.props;
     return (
       <div className="projectspace">
         <div className="workspace_header">
@@ -22,10 +22,13 @@ class ProjectSpace extends Component {
           </div>
         </div>
         <div className="worspace_body">
-          <ProjectList />
+          <ProjectList onChangeClick={next => onChangeClick(next)} />
         </div>
         {user.auth === TEACHER ? (
-          <div className="build_team_button" onClick={this.popup.bind(this)}>
+          <div
+            className={popup.active === 0 ? "build_team_button" : "none"}
+            onClick={this.popup.bind(this)}
+          >
             <p>+</p>
           </div>
         ) : null}
@@ -36,7 +39,8 @@ class ProjectSpace extends Component {
 
 function mapStateToProps(state) {
   return {
-    user: state.user
+    user: state.user,
+    popup: state.popup
   };
 }
 
