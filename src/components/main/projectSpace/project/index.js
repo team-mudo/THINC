@@ -18,10 +18,10 @@ class Project extends Component {
   enter() {
     const { onChangeClick, enterProject, user, info } = this.props;
     if (user.auth) {
-      enterProject(info.cid);
+      enterProject({ id: info.cid, name: info.classname });
     } else {
+      enterProject({ id: info.team, name: info.teamname });
     }
-
     onChangeClick(INPROJECT);
   }
   render() {

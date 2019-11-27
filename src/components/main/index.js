@@ -4,14 +4,16 @@ import { withCookies } from "react-cookie";
 
 import {
   userinfo,
+  EXPLAIN,
+  INPROJECT,
   PROJECTSPACE,
   NOTICE,
-  SETTING,
-  INPROJECT
+  SETTING
 } from "../../actions";
 
 import Navigation from "./navigation";
 import ProjectSpace from "./projectSpace";
+import Explain from "./explain";
 import InProject from "./inProject";
 import Notice from "./notice";
 import Setting from "./setting";
@@ -23,7 +25,7 @@ class Main extends Component {
     const { cookies } = this.props;
 
     this.state = {
-      clicked: 1
+      clicked: -1
     };
 
     const { token } = this.props.user;
@@ -53,6 +55,7 @@ class Main extends Component {
         <Popup />
         <Navigation onChangeClick={next => this.onChangeClick(next)} />
         <div className="workspace">
+          {clicked === EXPLAIN ? <Explain /> : null}
           {clicked === INPROJECT ? <InProject /> : null}
           {clicked === PROJECTSPACE ? (
             <ProjectSpace onChangeClick={next => this.onChangeClick(next)} />

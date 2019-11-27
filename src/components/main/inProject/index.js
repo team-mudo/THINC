@@ -1,17 +1,20 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 import ProjectTeacher from "./projectTeacher";
 import ProjectStudent from "./projectStudent";
 
 class InProject extends Component {
   render() {
-    return (
-      <div className="inproject">
-        <ProjectTeacher />
-        <ProjectStudent />
-      </div>
-    );
+    const { user } = this.props;
+    return user.auth ? <ProjectTeacher /> : <ProjectStudent />;
   }
 }
 
-export default InProject;
+function mapStateToProps(state) {
+  return {
+    user: state.user
+  };
+}
+
+export default connect(mapStateToProps)(InProject);

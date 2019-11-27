@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import ProjectList from "./projectList";
-import { TEACHER, onpopup, ON_BUILD_PROJECT } from "../../../actions";
+import { TEACHER, onpopup, ON_BUILD_PROJECT, EXPLAIN } from "../../../actions";
 import HOWTOUSE from "../../../image/main_howtouse.png";
 
 class ProjectSpace extends Component {
@@ -17,7 +17,14 @@ class ProjectSpace extends Component {
         <div className="workspace_header">
           <p>Project space</p>
           <div className="workspace_header_tool">
-            <img src={HOWTOUSE} alt="howtouse" width="48" height="48" />
+            <img
+              className="howtouse"
+              src={HOWTOUSE}
+              alt="howtouse"
+              width="48"
+              height="48"
+              onClick={() => onChangeClick(EXPLAIN)}
+            />
             <p>How to use?</p>
           </div>
         </div>

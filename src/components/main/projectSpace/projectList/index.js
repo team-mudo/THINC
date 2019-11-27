@@ -44,7 +44,7 @@ class ProjectList extends Component {
       return _.map(datas, data => {
         return (
           <Project
-            key={data.cid}
+            key={user.auth ? data.cid : data.team}
             info={data}
             onChangeClick={next => onChangeClick(next)}
           />
