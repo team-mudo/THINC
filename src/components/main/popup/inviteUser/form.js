@@ -3,7 +3,7 @@ import { Field, reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { makeTeam, onpopup, OFF_POPUP } from "../../../../actions";
+import { inviteUser, onpopup, OFF_POPUP } from "../../../../actions";
 
 class Form extends Component {
   renderField(field) {
@@ -19,21 +19,23 @@ class Form extends Component {
     );
   }
   onSubmit(values) {
+    const { token } = this.props.user;
+    const { popup } = this.props;
     const result = {
-      cid: this.props.index.id,
-      teamname: values.teamname,
-      token: this.props.user.token
+      email: values.email,
+      token: token,
+      tid: popup.active
     };
-    this.props.makeTeam(result);
+    this.props.inviteUser(result);
     this.props.onpopup(OFF_POPUP);
   }
   render() {
     const { handleSubmit } = this.props;
     return (
       <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-        <Field name="teamname" label="text" component={this.renderField} />
+        <Field name="email" label="text" component={this.renderField} />
         <button className="field button" type="submit">
-          생성하기
+          초대하기
         </button>
       </form>
     );
@@ -41,8 +43,8 @@ class Form extends Component {
 }
 function validate(values) {
   const errors = {};
-  if (!values.teamname) {
-    errors.teamname = "Enter a teamname!";
+  if (!values.email) {
+    errors.email = "Enter a email!";
   }
   return errors;
 }
@@ -50,11 +52,11 @@ function validate(values) {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    index: state.index
+    popup: state.popup
   };
 }
 
 export default reduxForm({
   validate,
-  form: "MakeTeam"
-})(withRouter(connect(mapStateToProps, { makeTeam, onpopup })(Form)));
+  form: "InviteMember"
+})(withRouter(connect(mapStateToProps, { inviteUser, onpopup })(Form)));

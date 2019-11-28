@@ -10,6 +10,7 @@ export default function(state = { token: 0 }, action) {
       return { token: action.payload };
     case USERINFO:
       return {
+        uid: action.payload.uid,
         email: action.payload.email,
         nickname: action.payload.nickname,
         auth: action.payload.auth,

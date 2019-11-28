@@ -7,6 +7,7 @@ import PopupReducer from "./popupReducer";
 import ProjectReducer from "./projectReducer";
 import TeamReducer from "./teamReducer";
 import ClassIndexReducer from "./classIndexReducer";
+import TeamuserReducer from "./teamUserReducer";
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   popup: PopupReducer,
   class: ProjectReducer,
   team: TeamReducer,
-  index: ClassIndexReducer
+  index: ClassIndexReducer,
+  teamuser: TeamuserReducer
 });
 
 export default rootReducer;

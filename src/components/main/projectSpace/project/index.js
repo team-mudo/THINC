@@ -4,8 +4,7 @@ import { connect } from "react-redux";
 import { onpopup, enterProject, INPROJECT } from "../../../../actions";
 
 import BlockDelete from "../../../../image/block_delete.png";
-import BlockMember from "../../../../image/block_numberOfstudent.png";
-import BlockTeacher from "../../../../image/block_teacher.png";
+import BlockTeacher from "../../../../image/main_space.png";
 
 class Project extends Component {
   popup() {
@@ -13,6 +12,7 @@ class Project extends Component {
     if (user.auth) {
       onpopup({ active: info.cid, kind: 3, name: info.classname });
     } else {
+      onpopup({ active: user.uid, kind: 6, clicked: info.team });
     }
   }
   enter() {
@@ -33,9 +33,11 @@ class Project extends Component {
         </div>
         <div>
           <img src={BlockTeacher} alt="teacher" width="24" height="24" />
-          <p>teacher's name</p>
-          <img src={BlockMember} alt="member" width="24" height="24" />
-          <p>3 teams</p>
+          <p className="explain">
+            {user.auth
+              ? info.explain
+              : `${info.teamname} 팀과 아이디어 공유하기`}
+          </p>
           <img
             src={BlockDelete}
             alt="delete"

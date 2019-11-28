@@ -2,10 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 
 import { getAllTeam } from "../../../../actions";
-import TimerStop from "../../../../image/timer_stop.png";
 import TeamList from "../teamList";
 import Userspace from "../userspace";
-import UserList from "../userList";
+import SideTool from "../sideTool";
 
 class ProjectTeacher extends Component {
   constructor(props) {
@@ -13,6 +12,7 @@ class ProjectTeacher extends Component {
     this.state = {
       clicked: 0
     };
+    this.onClickChange = this.onClickChange.bind(this);
   }
   componentDidMount() {
     const { index, user, getAllTeam } = this.props;
@@ -27,21 +27,17 @@ class ProjectTeacher extends Component {
     return (
       <div className="projectteacher">
         <div className="workspace_header">
-          <p>{name}</p>
-          <div className="workspace_header_tool">
-            <div>
-              <img src={TimerStop} alt="timer stop" />
-            </div>
-            <h4>00:00</h4>
-          </div>
+          <p onClick={() => this.onClickChange(0)}>{name}</p>
         </div>
         <TeamList
           clicked={clicked}
           onClickChange={next => this.onClickChange(next)}
         />
         <div className="workspace_body">
-          {clicked === 0 ? null : <UserList clicked={clicked} />}
           {clicked === 0 ? null : <Userspace clicked={clicked} />}
+          {clicked === 0 ? null : (
+            <SideTool clicked={clicked} onClickChange={this.onClickChange} />
+          )}
         </div>
       </div>
     );
@@ -51,7 +47,8 @@ class ProjectTeacher extends Component {
 function mapStateToProps(state) {
   return {
     user: state.user,
-    index: state.index
+    index: state.index,
+    popup: state.popup
   };
 }
 

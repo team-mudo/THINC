@@ -38,6 +38,7 @@ class TeamList extends Component {
 
 function mapStateToProps(state) {
   return {
+    user: state.user,
     team: state.team
   };
 }

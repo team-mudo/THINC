@@ -9,6 +9,9 @@ export const ENTERPROJECT = "enterproject";
 export const GETALLTEAM = "getallteam";
 export const MAKETEAM = "maketeam";
 export const DELETETEAM = "deleteteam";
+export const GETTEAMUSER = "getteamuser";
+export const INVITEUSER = "inviteuser";
+export const LEAVEUSER = "leaveuser";
 
 const URL = `${ROOT_URL}/${CLASS}`;
 
@@ -89,7 +92,6 @@ export function makeTeam(info) {
   const request = axios
     .post(`${URL}/team/create`, info)
     .then(response => {
-      console.log(response);
       return response.data;
     })
     .catch(response => {
@@ -103,8 +105,8 @@ export function makeTeam(info) {
 
 // 팀 삭제
 export function delTeam(token, tid, data) {
-  const request = axios
-    .post(`${ROOT_URL}/team/remove`, { token, tid })
+  axios
+    .post(`${URL}/team/remove`, { token, tid })
     .then(response => {
       return response.data.result;
     })
@@ -117,52 +119,51 @@ export function delTeam(token, tid, data) {
   };
 }
 
-// export function getTeamUser(token, tid) {
-//   const request = axios
-//     .post(`${ROOT_URL}/team/user`, { token, tid })
-//     .then(response => {
-//       return response.data;
-//     })
-//     .catch(response => {
-//       console.log(response);
-//     });
-//   return {
-//     type: GETTEAMUSER,
-//     payload: request
-//   };
-// }
+export function getTeamUser(token, tid) {
+  const request = axios
+    .post(`${URL}/team/user`, { token, tid })
+    .then(response => {
+      return response.data;
+    })
+    .catch(response => {
+      console.log(response);
+    });
+  return {
+    type: GETTEAMUSER,
+    payload: request
+  };
+}
 
-// export function inviteUser(info) {
-//   const request = axios
-//     .post(`${ROOT_URL}/team/invite`, info)
-//     .then(response => {
-//       if (response.data.result === 0) {
-//         alert(response.data.message);
-//         return { user: -1 };
-//       } else {
-//         return response.data;
-//       }
-//     })
-//     .catch(response => {
-//       console.log(response);
-//     });
-//   return {
-//     type: INVITEUSER,
-//     payload: request
-//   };
-// }
+export function inviteUser(info) {
+  const request = axios
+    .post(`${URL}/team/invite`, info)
+    .then(response => {
+      if (response.data.result === 0) {
+        alert(response.data.message);
+      } else {
+        return response.data;
+      }
+    })
+    .catch(response => {
+      console.log(response);
+    });
+  return {
+    type: INVITEUSER,
+    payload: request
+  };
+}
 
-// export function delUser(tid, uid, token, data) {
-//   const request = axios
-//     .post(`${ROOT_URL}/team/out`, { tid, uid, token })
-//     .then(response => {
-//       return response.data;
-//     })
-//     .catch(response => {
-//       console.log(response);
-//     });
-//   return {
-//     type: OUTUSER,
-//     payload: data
-//   };
-// }
+export function delUser(tid, uid, token, data) {
+  axios
+    .post(`${URL}/team/out`, { tid, uid, token })
+    .then(response => {
+      return response.data;
+    })
+    .catch(response => {
+      console.log(response);
+    });
+  return {
+    type: LEAVEUSER,
+    payload: data
+  };
+}

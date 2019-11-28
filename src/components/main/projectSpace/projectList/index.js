@@ -7,20 +7,14 @@ import { getMyClass, getMyTeam } from "../../../../actions";
 import Project from "../project";
 
 class ProjectList extends Component {
-  componentDidMount() {
-    const { token, auth } = this.props.user;
-    if (auth) {
-      this.props.getMyClass(token);
-    } else {
-      this.props.getMyTeam(token);
-    }
-  }
   renderClass() {
     const { user, onChangeClick } = this.props;
     let datas = 0;
     if (user.auth) {
+      this.props.getMyClass(user.token);
       datas = this.props.class;
     } else {
+      this.props.getMyTeam(user.token);
       datas = this.props.team;
     }
     if (datas.length === 0 || datas.result === 0) {
