@@ -1,51 +1,61 @@
 import React, { Component } from "react";
-import { Field, reduxForm } from "redux-form";
+import { reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
+import { CHAT } from "../../../../actions";
 import Upload from "../../../../image/file_upload.png";
 import Draw from "../../../../image/draw.png";
 
 class Sendbox extends Component {
-  renderField(field) {
-    return (
-      <div className="sendbox_field">
-        <input
-          className="field_two"
-          type={field.label}
-          {...field.input}
-          placeholder={field.meta.error}
-        />
-      </div>
-    );
+  constructor(props) {
+    super(props);
+    this.state = {
+      team: this.props.clicked,
+      comment: ""
+    };
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+  onInputChange(event) {
+    this.setState({ ...this.state, comment: event.target.value });
+  }
+  onSubmit(event) {
+    event.preventDefault();
+
+    const { socket } = this.props;
+    socket.emit(CHAT, this.state);
+    this.setState({ comment: "" });
   }
   render() {
     const { size } = this.props;
     return (
-      <div className={size ? "sendbox_nav" : "sendbox"}>
-        <Field name="text" label="text" component={this.renderField} />
+      <form
+        className={size ? "sendbox_nav" : "sendbox"}
+        onSubmit={this.onSubmit}
+      >
+        <input
+          name="text"
+          type="text"
+          placeholder="Share your Idea!"
+          className="field_two"
+          value={this.state.comment}
+          onChange={this.onInputChange}
+        />
         <div className="sendbox_button">
-          <div className="sendbox_button_one">
-            <img src={Draw} alt="draw" width="36" height="36" />
-          </div>
-          <div className="sendbox_button_one">
-            <img src={Upload} alt="upload" width="36" height="36" />
-          </div>
-          <div className="sendbox_button_two">
-            <p>Send</p>
-          </div>
+          <button className="sendbox_button_two" type="submit">
+            Send
+          </button>
         </div>
-      </div>
+        <div className="sendbox_button_one">
+          <img src={Draw} alt="draw" width="36" height="36" />
+        </div>
+        <div className="sendbox_button_one">
+          <img src={Upload} alt="upload" width="36" height="36" />
+        </div>
+      </form>
     );
   }
-}
-
-function validate(values) {
-  const errors = {};
-  if (!values.text) {
-    errors.text = "Share your idea!";
-  }
-  return errors;
 }
 
 function mapStateToProps(state) {
@@ -55,6 +65,5 @@ function mapStateToProps(state) {
 }
 
 export default reduxForm({
-  validate,
   form: "sendbox"
 })(withRouter(connect(mapStateToProps)(Sendbox)));
