@@ -3,7 +3,7 @@ import { reduxForm } from "redux-form";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { CHAT } from "../../../../actions";
+import { CHAT, addIdea } from "../../../../actions";
 import Upload from "../../../../image/file_upload.png";
 import Draw from "../../../../image/draw.png";
 
@@ -11,21 +11,28 @@ class Sendbox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      team: this.props.clicked,
-      comment: ""
+      teamId: this.props.clicked,
+      idea: "",
+      usernick: this.props.user.nickname,
+      type: 0,
+      like: 0,
+      state: 0
     };
     this.onInputChange = this.onInputChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
   onInputChange(event) {
-    this.setState({ ...this.state, comment: event.target.value });
+    this.setState({ ...this.state, idea: event.target.value });
   }
   onSubmit(event) {
     event.preventDefault();
 
-    const { socket } = this.props;
+    const { socket, addIdea } = this.props;
+
     socket.emit(CHAT, this.state);
-    this.setState({ comment: "" });
+    addIdea(this.state);
+
+    this.setState({ ...this.state, idea: "" });
   }
   render() {
     const { size } = this.props;
@@ -39,7 +46,7 @@ class Sendbox extends Component {
           type="text"
           placeholder="Share your Idea!"
           className="field_two"
-          value={this.state.comment}
+          value={this.state.idea}
           onChange={this.onInputChange}
         />
         <div className="sendbox_button">
@@ -60,10 +67,11 @@ class Sendbox extends Component {
 
 function mapStateToProps(state) {
   return {
+    user: state.user,
     size: state.size
   };
 }
 
 export default reduxForm({
   form: "sendbox"
-})(withRouter(connect(mapStateToProps)(Sendbox)));
+})(withRouter(connect(mapStateToProps, { addIdea })(Sendbox)));

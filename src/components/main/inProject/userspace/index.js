@@ -1,19 +1,18 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { CHAT } from "../../../../actions";
+import { CHAT, getIdea } from "../../../../actions";
 import Projectempty from "../../../../image/project_empty.png";
 
 class Userspace extends Component {
   componentDidMount() {
-    console.log("success");
-    const { socket } = this.props;
-
-    socket.on(CHAT, data => {
+    const { socket, clicked, getIdea } = this.props;
+    getIdea(clicked);
+    socket.on(CHAT + clicked, data => {
       console.log(data);
     });
   }
   render() {
-    // const { clicked } = this.props;
     return (
       <div className="userspace">
         <img src={Projectempty} alt="project empty" />
@@ -22,4 +21,4 @@ class Userspace extends Component {
   }
 }
 
-export default Userspace;
+export default connect(null, { getIdea })(Userspace);

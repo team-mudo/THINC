@@ -8,6 +8,7 @@ import ProjectReducer from "./projectReducer";
 import TeamReducer from "./teamReducer";
 import ClassIndexReducer from "./classIndexReducer";
 import TeamuserReducer from "./teamUserReducer";
+import IdeaReducer from "./ideaReducer";
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   class: ProjectReducer,
   team: TeamReducer,
   index: ClassIndexReducer,
-  teamuser: TeamuserReducer
+  teamuser: TeamuserReducer,
+  idea: IdeaReducer
 });
 
 export default rootReducer;

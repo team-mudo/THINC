@@ -13,6 +13,9 @@ export const GETTEAMUSER = "getteamuser";
 export const INVITEUSER = "inviteuser";
 export const LEAVEUSER = "leaveuser";
 
+export const GETIDEA = "getidea";
+export const ADDIDEA = "addidea";
+
 const URL = `${ROOT_URL}/${CLASS}`;
 
 // 수업 정보 GET
@@ -165,5 +168,36 @@ export function delUser(tid, uid, token, data) {
   return {
     type: LEAVEUSER,
     payload: data
+  };
+}
+
+export function getIdea(tid) {
+  const request = axios
+    .post(`${URL}/getIdea`, { tid })
+    .then(response => {
+      console.log(response.data);
+      return response.data;
+    })
+    .catch(response => {
+      console.log(response);
+    });
+  return {
+    type: GETIDEA,
+    payload: request
+  };
+}
+
+export function addIdea(value) {
+  axios
+    .post(`${URL}/addIdea`, value)
+    .then(response => {
+      return response;
+    })
+    .catch(response => {
+      console.log(response);
+    });
+  return {
+    type: ADDIDEA,
+    payload: value
   };
 }
